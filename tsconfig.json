@@ -1,0 +1,8 @@
+{
+  "extends": "agents/tsconfig",
+  "compilerOptions": {
+    "lib": ["ES2025", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"]
+  },
+  "include": ["src/client", "shared", "vite.config.ts", "vitest.config.ts"]
+}
