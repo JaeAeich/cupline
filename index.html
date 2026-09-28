@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Cupline · pick up, someone might be there</title>
+    <meta name="description" content="A tin-can telephone for strangers. Speak in any language; whoever picks up hears you in theirs, the way they choose." />
+    <meta name="theme-color" content="#1e2240" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,50..100,0..1;1,9..144,300..700,50..100,0..1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="/src/client/style.css" />
+  </head>
+  <body data-phase="landing">
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Cupline
+    </header>
+
+    <!-- Landing -->
+    <section class="landing" aria-labelledby="headline">
+      <h1 id="headline">Pick up.<br /><em>Someone might be there.</em></h1>
+      <p class="lede">
+        A tin-can telephone for strangers. Speak in any language. Whoever is on the other end
+        hears you in theirs, and <strong>they</strong> choose how you come across.
+      </p>
+      <button id="pick-up" class="button primary" type="button">Pick up the cup</button>
+      <ol class="how">
+        <li><span><b>You speak</b> in any language</span></li>
+        <li><span><b>The string</b> rewrites it for them</span></li>
+        <li><span><b>They hear it</b> their way, in a stranger's voice</span></li>
+      </ol>
+      <p class="fine">Your voice never leaves the string. Only your words do.</p>
+    </section>
+
+    <!-- On the line -->
+    <section class="call" aria-label="On the line">
+      <aside class="tag you" aria-labelledby="you-title">
+        <h2 id="you-title">You</h2>
+        <label class="field">
+          <span>Your voice</span>
+          <select id="voice"></select>
+        </label>
+        <label class="field">
+          <span>Hear them in</span>
+          <select id="lang"></select>
+        </label>
+        <fieldset class="field modes">
+          <legend>How they come across</legend>
+          <div id="modes" class="mode-options"></div>
+        </fieldset>
+      </aside>
+
+      <aside class="tag them" aria-labelledby="them-title" aria-live="polite">
+        <h2 id="them-title">The other cup</h2>
+        <p id="them-subtitle" class="subtitle"></p>
+        <dl id="them-details" class="details" hidden>
+          <div><dt>Their voice</dt><dd id="them-voice"></dd></div>
+          <div><dt>Hears you as</dt><dd id="them-hears"></dd></div>
+          <div id="them-distance-row" hidden><dt>String length</dt><dd id="them-distance"></dd></div>
+        </dl>
+      </aside>
+
+      <div class="stage">
+      <ol id="conversation" class="conversation" aria-live="polite" aria-label="Conversation"></ol>
+      <div id="empty-line" class="empty-line" hidden>
+        <p>Nobody's on the line right now.</p>
+        <div class="empty-actions">
+          <button id="play-messages" class="button ghost" type="button" hidden></button>
+          <button id="call-operator" class="button ghost" type="button">Talk to the Operator</button>
+          <button id="share" class="button ghost" type="button">Hand someone the other cup</button>
+        </div>
+        <p class="hint">Or just hold the cup and talk. Whatever you say waits here for the next person.</p>
+      </div>
+
+      </div>
+
+      <div class="controls">
+        <button id="talk" class="talk" type="button">
+          <span class="talk-rim" aria-hidden="true"></span>
+          <span id="talk-label" class="talk-label">Hold to talk</span>
+          <small class="talk-hint">or hold <kbd>Space</kbd></small>
+        </button>
+        <form id="type-form" class="type-form">
+          <input id="typed" type="text" maxlength="500" autocomplete="off" placeholder="…or type into the cup" aria-label="Type a message" />
+        </form>
+        <p id="status" class="status" role="status"></p>
+        <button id="hang-up" class="button ghost small" type="button">Hang up</button>
+      </div>
+    </section>
+
+    <!-- Put down -->
+    <section class="put-down" aria-live="polite">
+      <p id="put-down-text" class="put-down-text">You put the cup down.</p>
+      <button id="pick-up-again" class="button primary" type="button">Pick up again</button>
+    </section>
+
+    <dialog id="share-dialog" class="share-dialog" aria-labelledby="share-title">
+      <h2 id="share-title">Hand someone the other cup</h2>
+      <p>Scan this on another phone, or send the link. You're both on a private string now.</p>
+      <img id="qr" alt="QR code for the private string" width="220" height="220" />
+      <p><a id="share-link" class="share-link" href="/" target="_blank" rel="noopener">Link to the private string</a></p>
+      <form method="dialog"><button class="button primary" type="submit">Done</button></form>
+    </dialog>
+
+    <template id="line-template">
+      <li class="line">
+        <p class="who"></p>
+        <p class="words"></p>
+        <details class="original" hidden>
+          <summary>Peek at what they actually said</summary>
+          <p></p>
+        </details>
+        <p class="travel"></p>
+        <p class="meta"></p>
+      </li>
+    </template>
+
+    <script type="module" src="/src/client/main.ts"></script>
+  </body>
+</html>
